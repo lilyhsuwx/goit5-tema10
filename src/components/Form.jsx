@@ -1,23 +1,30 @@
 import { Component } from "react";
+import { nanoid } from "nanoid";
+
 
 class Form extends Component{
     state = {
         lastname: "",
         surname: "",
         email: "",
-        cources: "",
-        agree: false,
+        // cources: "",
+        // agree: false,
     }
+
+namID = nanoid(5)
+surnameId = nanoid(5)
+formID = nanoid(5)
 
 handleSubmit = (evt) => {
     evt.preventDefault()
     const {lastname, surname, email, cources, agree} = this.state
 
     const data = {
+        id:  String(Date.now()),
         lastname,
         surname,
         email,
-        cources,
+        // cources,
     }
 
     this.props.onApp(data)
@@ -31,8 +38,8 @@ handleSubmit = (evt) => {
         lastname: "",
         surname: "",
         email: "",
-        cources: "",
-        agree: false,
+        // cources: "",
+        // agree: false,
     })
     // evt.currentTarget.reset()
 
@@ -68,13 +75,13 @@ handleChange = (evt) => {
     
 }
 
-handleCheck = (evt) => {
-    const {agree} = this.state
+// handleCheck = (evt) => {
+//     const {agree} = this.state
 
-    this.setState({
-        agree: !agree,
-    })
-}
+//     this.setState({
+//         agree: !agree,
+//     })
+// }
 
 
     render(){
@@ -83,12 +90,14 @@ handleCheck = (evt) => {
 
         return(
             <>
-                <form onSubmit={this.handleSubmit}>
-                    <input onChange={this.handleChange} value={lastname} type="text" name="lastname" placeholder="enter name"/>
-                    <input onChange={this.handleChange} value={surname} type="text" name="surname" placeholder="enter surname"/>
+                <form id={this.formID} onSubmit={this.handleSubmit}>
+                    <label htmlFor={this.namID}> Введдіть імя </label>
+                    <input id={this.namID} onChange={this.handleChange} value={lastname} type="text" name="lastname" placeholder="enter name"/>
+                    <label htmlFor={this.surnameId}> Введдіть прізвище </label>
+                    <input id={this.surnameId}  onChange={this.handleChange} value={surname} type="text" name="surname" placeholder="enter surname"/>
                     <input onChange={this.handleChange} value={email} type="email" name="email" placeholder="enter email"/>
 
-                    <label> HTML
+                    {/* <label> HTML
                         <input onChange={this.handleChange} checked={cources === "html"} value="html" type="radio" name="cources" />
                     </label>
 
@@ -98,10 +107,10 @@ handleCheck = (evt) => {
 
                     <label> REACT
                         <input onChange={this.handleChange} checked={cources === "react"} value="react" type="radio" name="cources" />
-                    </label>
+                    </label> */}
 
                     <input onChange={this.handleCheck} type="checkbox" name="" checked={agree}/>
-                    <button disabled={!agree} type="submit">Відправити</button>
+                    <button type="submit">Відправити</button> {/* disabled={!agree}*/}
                 </form>
             </>
         )
